@@ -1,6 +1,8 @@
 const http = require("http");
 const express = require("express");
 const axios = require("axios");
+
+// environment variables
 const PORT = process.env.PORT || 3000;
 const EXCHANGE_RATE_API =
   process.env.EXCHANGE_RATE_API || "https://api.exchangeratesapi.io/latest";
