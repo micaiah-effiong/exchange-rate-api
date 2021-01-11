@@ -1,0 +1,20 @@
+{
+  "name": "exchage-rate",
+  "version": "1.0.0",
+  "description": "Simple exchage-rate API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "API",
+    "exchage-rate"
+  ],
+  "author": "Micaiah Effiong",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "underscore": "^1.12.0"
+  }
+}
