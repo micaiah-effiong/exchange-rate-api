@@ -1,7 +1,8 @@
 const http = require("http");
 const express = require("express");
 const axios = require("axios");
-const _ = require("underscore");
+
+// environment variables
 const PORT = process.env.PORT || 3000;
 const EXCHANGE_RATE_API =
   process.env.EXCHANGE_RATE_API || "https://api.exchangeratesapi.io/latest";
@@ -13,8 +14,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.route("/api/rates").get(async (req, res, next) => {
+  const { base, currency: symbols } = req.query;
+  const params = { base, symbols };
+
+  // qurey external exchange rate API
   const { data } = await axios
-    .get(EXCHANGE_RATE_API, { params: req.query })
+    .get(EXCHANGE_RATE_API, { params })
+
+    // catch error inline
     .catch((error) => {
       res.status(500).json({
         msg: "Something went wrong",
@@ -22,15 +29,9 @@ app.route("/api/rates").get(async (req, res, next) => {
       });
     });
 
-  const currencyArray = req.query.currency.split(",").map((e) => e.trim());
-  const rates = _.pick(data.rates, currencyArray);
-
+  // respond with json
   res.json({
-    result: {
-      base: req.query.base,
-      date: Date.now(),
-      rates,
-    },
+    result: data,
   });
 });
 
